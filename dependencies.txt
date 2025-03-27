@@ -1,0 +1,68 @@
+# AI Compiler + Dependencies
+
+# Python Dependencies
+python==3.9.x                # Python version (ensure compatibility with libraries)
+flask==2.3.2                 # For creating the API communication between components
+flask-socketio==5.3.2        # For real-time communication between Python and C++ components
+requests==2.31.0             # For making HTTP requests to repositories (if needed)
+pandas==1.5.3                # For analyzing and processing repository data
+numpy==1.24.3                # For numerical computations
+matplotlib==3.7.1            # For data visualization of insights
+scikit-learn==1.2.2          # For AI-driven task prioritization
+torch==2.0.1                 # For AI learning capabilities (PyTorch framework)
+joblib==1.3.2                # For parallelism and caching in Python
+
+# C++ Libraries
+Boost 1.83.0                 # For asynchronous socket programming and threading
+nlohmann-json 3.11.2         # For handling JSON data in C++
+gRPC 1.56.0                  # For remote procedure calls between Python and C++
+fmt 10.1.0                   # For fast and safe string formatting in C++
+Taskflow 3.7.0               # For task scheduling and task graph execution
+SQLite3                      # For storing synchronized task data between Python and C++
+CMake 3.27.0                 # For building and integrating C++ components
+
+# Cross-Platform Bundling Tools
+pyinstaller==5.13.1          # For bundling Python components into the executable
+cmake-build-system           # To handle C++ compilation and integration into the executable
+
+# Optional Development Tools
+pytest==7.4.2                # For testing Python components
+clang-format==16.0.6         # For C++ code formatting
+black==23.3.0                # For Python code formatting
+
+# Python Dependencies  
+flask                      # For creating the REST API or socket-based communication  
+flask-socketio             # WebSockets for real-time communication between Python and C++  
+scikit-learn               # Machine learning algorithms for repository analysis  
+pandas                     # Data handling and analysis  
+matplotlib                 # Data visualization  
+numpy                      # Numerical computations  
+pygit2                     # For interacting with Git repositories  
+networkx                   # Graph-based analysis of code structures  
+joblib                     # Model serialization and task queueing  
+tqdm                       # Task progress visualization  
+pyinstaller                # For packaging the Python app into an executable  
+sqlalchemy                 # Database support for task logging and data storage  
+
+# C++ Dependencies  
+Boost                      # For task scheduling, threading, and asynchronous I/O  
+cpprestsdk                 # REST API or WebSocket communication in C++  
+nlohmann/json              # JSON parsing and handling  
+fmt                        # Formatted string output  
+spdlog                     # High-performance logging  
+libgit2                    # Interacting with Git repositories  
+SQLite                     # Local database for task persistence  
+CMake                      # Build system for compiling the C++ task scheduler  
+Zlib                       # Compression for file handling and integration  
+
+# Integration Libraries and Build Tools  
+ZeroMQ                     # Cross-language messaging for Python and C++ communication  
+protobuf                   # Protocol Buffers for structured data exchange  
+cmake                      # For building and compiling the C++ components  
+make                       # Build automation tool  
+g++/gcc                    # C++ compiler  
+Python 3.8+                # Ensure compatibility with Python libraries used  
+
+# Packaging Tools  
+pyinstaller                # Bundles the Python and C++ components into a single executable  
+docker (optional)          # Containerize the entire system for environment consistency  

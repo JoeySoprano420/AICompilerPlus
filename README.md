@@ -145,3 +145,21 @@ app.py (Python entry point)
 
 CMakeLists.txt (CMake configuration file)
 
+Key Functionalities
+This setup file will:
+
+Install system-level dependencies (Boost, gRPC, Taskflow, CMake, etc.).
+
+Set up a Python virtual environment and install required Python packages.
+
+Clone, build, and install C++ libraries like Taskflow and gRPC.
+
+Create the necessary project structure (e.g., AI_Compiler_Plus/src, AI_Compiler_Plus/build).
+
+Compile the C++ component using CMake and build an integrated Python-C++ executable with PyInstaller.
+
+Clean up temporary files and directories.
+
+This solution unifies the Python AI and C++ Task Scheduler seamlessly into a single executable, making deployment straightforward and efficient.
+
+

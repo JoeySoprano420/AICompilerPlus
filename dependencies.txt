@@ -66,3 +66,13 @@ Python 3.8+                # Ensure compatibility with Python libraries used
 # Packaging Tools  
 pyinstaller                # Bundles the Python and C++ components into a single executable  
 docker (optional)          # Containerize the entire system for environment consistency  
+
+# This list covers key dependencies for core functionalities, real-time communication between the components, task management, AI-based prioritization, and system logging.
+
+# Python Version: Ensure the Python interpreter version matches the one specified in the dependencies.
+
+# C++ Libraries: Precompiled binaries for libraries like Boost and gRPC may need to be installed separately or included in the bundle.
+
+# Cross-Platform Compatibility: All dependencies should work on the target operating systems (Windows, Linux, macOS).
+
+# Bundling Tools: The final executable will use PyInstaller for Python and CMake for C++ compilation.

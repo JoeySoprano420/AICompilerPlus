@@ -163,3 +163,30 @@ Clean up temporary files and directories.
 This solution unifies the Python AI and C++ Task Scheduler seamlessly into a single executable, making deployment straightforward and efficient.
 
 
+Load System for Linux Or Mac - 
+
+Explanation of Key Components
+System Checks:
+
+Verifies that the script is run with sudo to prevent permission issues.
+
+Checks if essential dependencies (cmake, python3, g++) are installed.
+
+Ensures that the required port (5000) is free for the Python AI server.
+
+Environment Setup:
+
+Creates or activates the Python virtual environment and installs dependencies from requirements.txt.
+
+Checks if the C++ binary exists, and if not, recompiles it.
+
+Launching Components:
+
+Launches the Python AI server and C++ task scheduler as background processes with nohup and logs their outputs.
+
+Monitors whether the components successfully started by checking for active processes and port availability.
+
+Logging:
+
+Creates a detailed log in logs/system_load.log, storing system status, process IDs, and any errors encountered.
+

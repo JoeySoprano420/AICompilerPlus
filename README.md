@@ -226,3 +226,9 @@ Extracts and logs the process IDs of both the Python and C++ components.
 
 This batch script provides robust automation for your entire AI Compiler + system on Windows, ensuring error handling, dependency checks, and seamless process management.
 
+How to Run This Script
+Save the file as load_system.bat.
+
+Open Command Prompt as Administrator.
+
+

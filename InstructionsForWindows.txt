@@ -1,0 +1,3 @@
+Save the install_dependencies.bat file and run it with Administrator privileges by right-clicking and selecting Run as Administrator.
+
+You’ll need Chocolatey (a package manager for Windows). Install it from chocolatey.org if you haven’t already.

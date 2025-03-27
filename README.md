@@ -190,3 +190,39 @@ Logging:
 
 Creates a detailed log in logs/system_load.log, storing system status, process IDs, and any errors encountered.
 
+
+Load System For Windows -
+
+Explanation of Script Components
+Log File Creation:
+Logs system initialization steps, errors, and process IDs to logs/system_load.log.
+
+Dependency and Environment Setup:
+
+Ensures Python and g++ are installed.
+
+Creates or activates the Python virtual environment and installs dependencies from requirements.txt.
+
+Port Check:
+Checks if the required port (5000) is free using Python's socket module.
+
+C++ Setup:
+If the C++ binary doesn’t exist, the script compiles the C++ project using mingw32-make (for Windows).
+
+Launching Processes:
+
+Starts the Python AI module as a background process using start cmd /c.
+
+Launches the C++ task scheduler similarly.
+
+Monitoring System Status:
+
+Uses netstat to check if the Python server started on the expected port.
+
+Uses tasklist to check if the C++ binary process is running.
+
+Logging Process IDs:
+Extracts and logs the process IDs of both the Python and C++ components.
+
+This batch script provides robust automation for your entire AI Compiler + system on Windows, ensuring error handling, dependency checks, and seamless process management.
+

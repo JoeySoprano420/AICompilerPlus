@@ -1,5 +1,5 @@
 # This workflow builds and tests the project using MSBuild on Windows runners.
-# NOTE: It uses third-party GitHub Actions and may be subject to separate terms and conditions.
+# It also optionally uploads build artifacts and logs for later inspection.
 
 name: AI Compiler+ Build Workflow
 
@@ -20,7 +20,7 @@ env:
   BUILD_PLATFORM: x64
 
 permissions:
-  contents: read
+  contents: read  # Controls repository access permissions for this workflow.
 
 jobs:
   build:
@@ -52,11 +52,14 @@ jobs:
     # Optional: Run tests (if applicable).
     - name: Run Unit Tests (Optional)
       run: vstest.console.exe "**/*.Test.dll" --Platform ${BUILD_PLATFORM} --Configuration ${BUILD_CONFIGURATION}
-      continue-on-error: true  # Mark the job as non-failing even if some tests fail.
+      continue-on-error: true  # Allow the workflow to proceed even if tests fail.
 
-    # Optional: Upload logs or build output (can be extended based on project needs).
-    - name: Upload Build Logs (Optional)
+    # Step 6: Upload Build Logs and Artifacts.
+    # This uploads any files from the build (e.g., executables, logs, or debug files) for later inspection.
+    - name: Upload Build Artifacts and Logs
       uses: actions/upload-artifact@v3
       with:
-        name: build-logs
-        path: ./logs/build_log.log
+        name: build-artifacts
+        path: |
+          ./bin/${{ env.BUILD_CONFIGURATION }}
+          ./logs/build_log.log

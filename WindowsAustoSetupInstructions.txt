@@ -1,0 +1,3 @@
+Save the setup_project.bat file.
+
+Run it with Administrator privileges by right-clicking the file and selecting Run as Administrator.

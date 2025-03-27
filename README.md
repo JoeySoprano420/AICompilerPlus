@@ -125,3 +125,13 @@ To package the entire system into **one executable file**, we use one of the fol
 
 ## **8. Conclusion**
 This integrated system offers a powerful combination of **AI-driven insights** and **task automation**, making it ideal for complex workflows involving large codebases, real-time task prioritization, and dynamic execution management. With a carefully designed communication layer and single-executable packaging, it delivers a seamless, efficient, and scalable user experience.
+
+
+Additional Notes:
+The script automates everything, but if any errors arise (e.g., missing tools), follow prompts to manually install or troubleshoot.
+
+The C++ libraries are built and installed system-wide.
+
+Python dependencies are installed globally. You may modify the script to install them in a virtual environment if preferred.
+
+With this setup, your AI Compiler + system will have all the necessary dependencies in place.

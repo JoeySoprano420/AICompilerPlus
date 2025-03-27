@@ -1,0 +1,62 @@
+# This workflow builds and tests the project using MSBuild on Windows runners.
+# NOTE: It uses third-party GitHub Actions and may be subject to separate terms and conditions.
+
+name: AI Compiler+ Build Workflow
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  # Path to the solution file relative to the root of the project.
+  SOLUTION_FILE_PATH: "./AI_Compiler_Plus.sln"
+
+  # Configuration type for MSBuild. To extend coverage, convert this to a build matrix.
+  BUILD_CONFIGURATION: Release
+
+  # Platform setting (e.g., x64, x86, or Any CPU).
+  BUILD_PLATFORM: x64
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    # Step 1: Check out the repository.
+    - name: Check out source code
+      uses: actions/checkout@v4
+
+    # Step 2: Add MSBuild to the system PATH.
+    - name: Set up MSBuild environment
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    # Step 3: Install NuGet dependencies to restore missing packages.
+    - name: Restore NuGet packages
+      run: nuget restore ${{ env.SOLUTION_FILE_PATH }}
+
+    # Step 4: Build the solution with MSBuild.
+    - name: Build the solution
+      run: msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:Platform=${{ env.BUILD_PLATFORM }} ${{ env.SOLUTION_FILE_PATH }}
+
+    # Step 5: Display the build artifacts (for logging or troubleshooting).
+    - name: Display Build Artifacts
+      run: |
+        echo "Displaying build artifacts..."
+        dir ./bin/${{ env.BUILD_CONFIGURATION }} /s
+
+    # Optional: Run tests (if applicable).
+    - name: Run Unit Tests (Optional)
+      run: vstest.console.exe "**/*.Test.dll" --Platform ${BUILD_PLATFORM} --Configuration ${BUILD_CONFIGURATION}
+      continue-on-error: true  # Mark the job as non-failing even if some tests fail.
+
+    # Optional: Upload logs or build output (can be extended based on project needs).
+    - name: Upload Build Logs (Optional)
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-logs
+        path: ./logs/build_log.log

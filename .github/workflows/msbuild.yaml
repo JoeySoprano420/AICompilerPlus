@@ -57,7 +57,7 @@ jobs:
     # Step 6: Upload Build Logs and Artifacts.
     # This uploads any files from the build (e.g., executables, logs, or debug files) for later inspection.
     - name: Upload Build Artifacts and Logs
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-pages-artifact@v3
       with:
         name: build-artifacts
         path: |

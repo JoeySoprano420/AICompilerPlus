@@ -135,3 +135,13 @@ The C++ libraries are built and installed system-wide.
 Python dependencies are installed globally. You may modify the script to install them in a virtual environment if preferred.
 
 With this setup, your AI Compiler + system will have all the necessary dependencies in place.
+
+Files Needed in Project Directory
+Ensure the following files exist in your project directory before running the setup script:
+
+main.cpp (your main C++ source file)
+
+app.py (Python entry point)
+
+CMakeLists.txt (CMake configuration file)
+

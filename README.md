@@ -232,3 +232,172 @@ Save the file as load_system.bat.
 Open Command Prompt as Administrator.
 
 
+MSBuild - 
+
+Explanation of Key Sections
+PropertyGroup:
+
+Defines project-level variables, like paths to the Python virtual environment, C++ build directory, output directory for the executable, and the log file location.
+
+ItemGroup:
+
+Includes all Python scripts in the virtual environment's Scripts directory for use in the build process.
+
+CreateDirectories Target:
+
+Ensures that necessary directories (logs, build, and dist) exist.
+
+SetupPythonEnvironment Target:
+
+Creates the Python virtual environment (if it doesn’t exist) and installs the required dependencies from requirements.txt.
+
+BuildCPlusPlus Target:
+
+Configures and builds the C++ components using CMake and mingw32-make.
+
+PackageExecutable Target:
+
+Packages the entire project into a single executable using PyInstaller and moves the C++ binary into the output directory.
+
+BuildAll Target:
+
+Runs the entire build process, creating the final executable.
+
+Clean Target:
+
+Removes build artifacts, including the C++ build directory, Python virtual environment, executable directory, and log files, to allow for a fresh build.
+
+Below is a **complete MSBuild file** that configures and builds your entire AI Compiler+ system, including both Python and C++ components, as well as any supporting infrastructure. It compiles the C++ source code, manages dependencies, creates the Python virtual environment, installs the required Python libraries, and packages everything into a final executable.
+
+---
+
+### **File: `AI_Compiler_Plus.msbuild`**  
+```xml
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectName>AI Compiler Plus</ProjectName>
+    <PythonVirtualEnvPath>env</PythonVirtualEnvPath>
+    <PythonDependenciesFile>requirements.txt</PythonDependenciesFile>
+    <CPlusPlusSourceDir>AI_Compiler_Plus/src</CPlusPlusSourceDir>
+    <CPlusPlusBuildDir>AI_Compiler_Plus/src/build</CPlusPlusBuildDir>
+    <ExecutableOutputDir>dist</ExecutableOutputDir>
+    <FinalExecutableName>ai_compiler_plus.exe</FinalExecutableName>
+    <LogFile>logs/build_log.log</LogFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PythonScripts Include="$(PythonVirtualEnvPath)\Scripts\*.exe" />
+  </ItemGroup>
+
+  <!-- Target to create necessary directories -->
+  <Target Name="CreateDirectories">
+    <Message Text="Creating necessary directories..." />
+    <MakeDir Directories="logs" Condition="!Exists('logs')" />
+    <MakeDir Directories="$(CPlusPlusBuildDir)" Condition="!Exists('$(CPlusPlusBuildDir)')" />
+    <MakeDir Directories="$(ExecutableOutputDir)" Condition="!Exists('$(ExecutableOutputDir)')" />
+  </Target>
+
+  <!-- Target to create Python virtual environment and install dependencies -->
+  <Target Name="SetupPythonEnvironment" DependsOnTargets="CreateDirectories">
+    <Message Text="Setting up Python virtual environment..." />
+    <Exec Command="python -m venv $(PythonVirtualEnvPath)" Condition="!Exists('$(PythonVirtualEnvPath)\Scripts\python.exe')" />
+    <Exec Command="$(PythonVirtualEnvPath)\Scripts\pip.exe install --upgrade pip" />
+    <Exec Command="$(PythonVirtualEnvPath)\Scripts\pip.exe install -r $(PythonDependenciesFile)" />
+  </Target>
+
+  <!-- Target to build C++ components -->
+  <Target Name="BuildCPlusPlus" DependsOnTargets="SetupPythonEnvironment">
+    <Message Text="Building C++ source code..." />
+    <Exec Command="cmake .." WorkingDirectory="$(CPlusPlusBuildDir)" />
+    <Exec Command="mingw32-make -j $(NUMBER_OF_PROCESSORS)" WorkingDirectory="$(CPlusPlusBuildDir)" />
+  </Target>
+
+  <!-- Target to package Python and C++ components into a single executable -->
+  <Target Name="PackageExecutable" DependsOnTargets="BuildCPlusPlus">
+    <Message Text="Packaging final executable..." />
+    <Exec Command="$(PythonVirtualEnvPath)\Scripts\pyinstaller.exe --onefile --name $(FinalExecutableName) main.py" />
+    <Copy SourceFiles="$(CPlusPlusBuildDir)\main_binary.exe" DestinationFolder="$(ExecutableOutputDir)" />
+  </Target>
+
+  <!-- Main Build Target -->
+  <Target Name="BuildAll" DependsOnTargets="PackageExecutable">
+    <Message Text="Build complete! Final executable located in $(ExecutableOutputDir)\$(FinalExecutableName)" />
+  </Target>
+
+  <!-- Clean Target -->
+  <Target Name="Clean">
+    <Message Text="Cleaning build artifacts..." />
+    <RemoveDir Directories="$(CPlusPlusBuildDir)" />
+    <RemoveDir Directories="$(PythonVirtualEnvPath)" />
+    <RemoveDir Directories="$(ExecutableOutputDir)" />
+    <Delete Files="$(LogFile)" />
+  </Target>
+
+</Project>
+```
+
+---
+
+### **Explanation of Key Sections**
+
+1. **PropertyGroup:**
+   - Defines project-level variables, like paths to the Python virtual environment, C++ build directory, output directory for the executable, and the log file location.
+
+2. **ItemGroup:**
+   - Includes all Python scripts in the virtual environment's `Scripts` directory for use in the build process.
+
+3. **CreateDirectories Target:**
+   - Ensures that necessary directories (`logs`, `build`, and `dist`) exist.
+
+4. **SetupPythonEnvironment Target:**
+   - Creates the Python virtual environment (if it doesn’t exist) and installs the required dependencies from `requirements.txt`.
+
+5. **BuildCPlusPlus Target:**
+   - Configures and builds the C++ components using CMake and `mingw32-make`.
+
+6. **PackageExecutable Target:**
+   - Packages the entire project into a single executable using **PyInstaller** and moves the C++ binary into the output directory.
+
+7. **BuildAll Target:**
+   - Runs the entire build process, creating the final executable.
+
+8. **Clean Target:**
+   - Removes build artifacts, including the C++ build directory, Python virtual environment, executable directory, and log files, to allow for a fresh build.
+
+---
+
+### **How to Run the MSBuild File**
+1. **Install MSBuild (if not already installed):**  
+   MSBuild comes with Visual Studio, but you can also install it as part of the .NET SDK.
+
+2. **Open Command Prompt** and navigate to the project directory.
+
+3. **Run the build process:**
+   ```cmd
+   msbuild AI_Compiler_Plus.msbuild /t:BuildAll
+   ```
+
+4. **To clean the build:**
+   ```cmd
+   msbuild AI_Compiler_Plus.msbuild /t:Clean
+   ```
+
+---
+
+### **Output Structure After Successful Build**
+```
+AI_Compiler_Plus/
+├── AI_Compiler_Plus.msbuild
+├── dist/
+│   └── ai_compiler_plus.exe  (Final bundled executable)
+├── logs/
+│   └── build_log.log         (Build log)
+├── env/                      (Python virtual environment)
+├── AI_Compiler_Plus/src/
+│   └── build/                (C++ build artifacts)
+```
+
+---
+
+This MSBuild file provides a complete build system for the entire AI Compiler+ project, handling Python, C++, dependency management, and executable packaging, all in one streamlined workflow.
+

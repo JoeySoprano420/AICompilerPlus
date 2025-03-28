@@ -105,3 +105,28 @@ docker (optional)          # Containerize the entire system for environment cons
 
 # Other:
    - Custom memory management logic is self-contained within the provided code and does not rely on any external libraries.
+
+# ImageMagick (for image conversion to .ico)
+ImageMagick==7.0.11-13
+# Note: Installation link for Windows (https://imagemagick.org/script/download.php)
+
+# C++ Dependencies (optional - modify based on your specific use case)
+# If you are using any libraries, like Boost, OpenCV, etc., you can list them here:
+# Boost C++ Libraries
+Boost==1.77.0
+# OpenCV (if using OpenCV for image processing or other operations)
+opencv-python==4.5.5.64
+
+# Python Dependencies (for Python-based parts of your project)
+# If you are using Python alongside C++ for some functionality:
+numpy==1.21.2
+pillow==8.4.0
+requests==2.26.0
+
+# GitHub CLI (if you are automating GitHub operations from the command line)
+gh==2.4.0
+
+# For Node.js or other scripting tools (optional)
+# If you are using Node.js to handle part of the frontend or backend, list the package manager here
+npm==7.24.0
+

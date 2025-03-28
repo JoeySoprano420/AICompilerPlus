@@ -116,7 +116,7 @@ To package the entire system into **one executable file**, we use one of the fol
 ---
 
 ## **7. Future Enhancements**
-- **Data Visualization**: Add a GUI to visualize task progress, repository insights, and AI analysis results.
+- **Data Visualization**: Further enhance the GUI to better visualize task progress, repository insights, and AI analysis results.
 - **Extended AI Capabilities**: Include more advanced machine learning models for enhanced repository analysis.
 - **Cloud Integration**: Allow remote task execution and cloud-based repository scanning.
 - **Customizable Task Prioritization**: Enable users to define custom prioritization rules based on specific project needs.

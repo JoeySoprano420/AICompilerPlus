@@ -76,3 +76,32 @@ docker (optional)          # Containerize the entire system for environment cons
 # Cross-Platform Compatibility: All dependencies should work on the target operating systems (Windows, Linux, macOS).
 
 # Bundling Tools: The final executable will use PyInstaller for Python and CMake for C++ compilation.
+
+1# C++ Compiler (with support for AVX-512 and OpenMP)
+   - GCC (>= 8.1)
+   - Clang (>= 8.0)
+   - MSVC (Microsoft Visual C++ Compiler with AVX-512 support)
+
+# OpenMP (parallel processing)
+   - Required for multi-threading optimizations.
+
+# CMake (Optional, for cross-platform building)
+   - Version >= 3.10
+
+# Operating System Dependencies:
+   - Linux (Ubuntu or other distros with build-essential and clang/gcc)
+   - macOS (with clang or gcc, supporting OpenMP)
+   - Windows (MSVC with AVX-512, or GCC with MinGW-w64)
+
+# Libraries (Optional for further optimizations):
+   - Intel MKL (Math Kernel Library) for optimized linear algebra operations.
+   - OpenBLAS for further matrix operations acceleration (optional for some matrix-heavy workloads).
+   - pthread (for advanced threading support on Linux/macOS if needed).
+
+# Profiling Tools (Optional):
+   - gprof (for Linux performance profiling)
+   - Visual Studio Profiler (for Windows performance profiling)
+   - Intel VTune Amplifier (optional, for advanced performance profiling)
+
+# Other:
+   - Custom memory management logic is self-contained within the provided code and does not rely on any external libraries.

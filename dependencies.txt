@@ -77,7 +77,7 @@ docker (optional)          # Containerize the entire system for environment cons
 
 # Bundling Tools: The final executable will use PyInstaller for Python and CMake for C++ compilation.
 
-1# C++ Compiler (with support for AVX-512 and OpenMP)
+# C++ Compiler (with support for AVX-512 and OpenMP)
    - GCC (>= 8.1)
    - Clang (>= 8.0)
    - MSVC (Microsoft Visual C++ Compiler with AVX-512 support)

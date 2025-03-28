@@ -1,0 +1,136 @@
+# Define the GitHub repository URL and local project directory
+$PROJECT_DIR = Get-Location
+$GITHUB_REPO = "https://github.com/joeysoprano420/AI-COMPILER-PLUS.git"
+$GIT_BRANCH = "main"
+
+# Step 1: Check for necessary tools and install if missing
+
+# Check for Git
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    Write-Host "Git is not installed. Installing Git..."
+    Start-Process "https://git-scm.com/download/win" -Wait
+} else {
+    Write-Host "Git is already installed."
+}
+
+# Check for Python3
+if (-not (Get-Command python3 -ErrorAction SilentlyContinue)) {
+    Write-Host "Python3 is not installed. Installing Python3..."
+    Start-Process "https://www.python.org/downloads/" -Wait
+} else {
+    Write-Host "Python3 is already installed."
+}
+
+# Check for C++ compiler (Visual Studio Build Tools)
+if (-not (Get-Command cl -ErrorAction SilentlyContinue)) {
+    Write-Host "C++ compiler is not installed. Installing Visual Studio Build Tools..."
+    Start-Process "https://visualstudio.microsoft.com/visual-cpp-build-tools/" -Wait
+} else {
+    Write-Host "C++ compiler is already installed."
+}
+
+# Check for Node.js
+if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
+    Write-Host "Node.js is not installed. Installing Node.js..."
+    Start-Process "https://nodejs.org/en/download/" -Wait
+} else {
+    Write-Host "Node.js is already installed."
+}
+
+# Step 2: Initialize Git repository (if not initialized already)
+
+Write-Host "Checking if Git repository is initialized..."
+if (-not (Test-Path "$PROJECT_DIR\.git")) {
+    Write-Host "Initializing Git repository..."
+    git init
+} else {
+    Write-Host "Git repository already initialized."
+}
+
+# Step 3: Set up GitHub repository remote (if not already configured)
+
+Write-Host "Checking for GitHub remote..."
+$remoteURL = git remote get-url origin -ErrorAction SilentlyContinue
+if (-not $remoteURL) {
+    Write-Host "Adding remote repository to GitHub..."
+    git remote add origin $GITHUB_REPO
+} else {
+    Write-Host "GitHub remote already configured."
+}
+
+# Step 4: Install Python dependencies if requirements.txt exists
+
+Write-Host "Checking for Python dependencies..."
+if (Test-Path "$PROJECT_DIR\requirements.txt") {
+    Write-Host "Installing Python dependencies from requirements.txt..."
+    python3 -m pip install -r "$PROJECT_DIR\requirements.txt"
+} else {
+    Write-Host "No requirements.txt found. Skipping Python dependencies."
+}
+
+# Step 5: Install Node.js dependencies if package.json exists
+
+Write-Host "Checking for Node.js dependencies..."
+if (Test-Path "$PROJECT_DIR\package.json") {
+    Write-Host "Installing Node.js dependencies from package.json..."
+    npm install
+} else {
+    Write-Host "No package.json found. Skipping Node.js dependencies."
+}
+
+# Step 6: Compile C++ code if applicable
+
+Write-Host "Checking for C++ files..."
+if (Test-Path "$PROJECT_DIR\*.cpp") {
+    Write-Host "Compiling C++ code..."
+    & "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat" && cl /EHsc *.cpp /Fe:output.exe
+    if ($?) {
+        Write-Host "C++ compilation successful."
+    } else {
+        Write-Host "C++ compilation failed."
+        exit 1
+    }
+} else {
+    Write-Host "No C++ files found to compile."
+}
+
+# Step 7: Create any missing directories
+
+Write-Host "Checking for missing directories..."
+if (-not (Test-Path "$PROJECT_DIR\build")) {
+    New-Item -ItemType Directory -Path "$PROJECT_DIR\build"
+    Write-Host "Created 'build' directory."
+}
+
+if (-not (Test-Path "$PROJECT_DIR\output")) {
+    New-Item -ItemType Directory -Path "$PROJECT_DIR\output"
+    Write-Host "Created 'output' directory."
+}
+
+# Step 8: Add and commit changes to Git
+
+Write-Host "Adding changes to Git..."
+git add --all
+
+$commitMsg = Read-Host "Enter commit message"
+if (-not $commitMsg) {
+    $commitMsg = "Automated setup commit"
+}
+
+git commit -m "$commitMsg"
+
+# Step 9: Push to GitHub
+
+Write-Host "Pushing changes to GitHub..."
+git push origin $GIT_BRANCH
+
+if ($?) {
+    Write-Host "Project successfully pushed to GitHub."
+} else {
+    Write-Host "Failed to push to GitHub. Please check your internet connection or authentication."
+    exit 1
+}
+
+# Final confirmation
+Write-Host "Setup is complete!"
+Write-Host "Your project is now configured and deployed to GitHub: $GITHUB_REPO"

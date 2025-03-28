@@ -1,0 +1,231 @@
+AI Compiler Plus Project Manual
+
+Overview
+
+AI Compiler Plus is a comprehensive toolset designed to streamline the creation, compilation, and deployment of C++ and Python code into a cohesive application. The project provides robust functionality for converting images to ICO format, automating GitHub deployments, and integrating various development utilities.
+
+This manual provides step-by-step instructions on how to set up and use AI Compiler Plus across macOS, Linux, and Windows environments.
+
+⸻
+
+Table of Contents
+	1.	Installation
+	•	macOS
+	•	Linux
+	•	Windows
+	2.	Setup and Configuration
+	3.	Usage
+	•	Compiling Code
+	•	Converting PNG to ICO
+	•	GitHub Integration
+	4.	Dependencies
+	5.	Troubleshooting
+	6.	Credits
+
+⸻
+
+Installation
+
+macOS
+	1.	Install Homebrew:
+If you don’t have Homebrew installed, you can install it using the following command:
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+
+	2.	Install Dependencies:
+You need to install the following dependencies:
+
+brew install imagemagick boost opencv
+brew install gh
+
+
+	3.	Clone the Repository:
+Clone the AI Compiler Plus repository from GitHub:
+
+git clone https://github.com/joeysoprano420/AI-Compiler-Plus.git
+cd AI-Compiler-Plus
+
+
+	4.	Ensure ImageMagick is Working:
+Confirm that ImageMagick is properly installed:
+
+convert --version
+
+
+	5.	Python Dependencies:
+For Python integration, you can install the required Python packages:
+
+python3 -m pip install -r dependencies.txt
+
+
+
+⸻
+
+Linux
+	1.	Install Dependencies:
+Update your package manager and install required dependencies:
+
+sudo apt update
+sudo apt install imagemagick libboost-all-dev libopencv-dev gh python3-pip
+
+
+	2.	Clone the Repository:
+Clone the AI Compiler Plus repository:
+
+git clone https://github.com/joeysoprano420/AI-Compiler-Plus.git
+cd AI-Compiler-Plus
+
+
+	3.	Ensure ImageMagick is Working:
+Check if ImageMagick is installed correctly:
+
+convert --version
+
+
+	4.	Install Python Dependencies:
+Install required Python dependencies:
+
+python3 -m pip install -r dependencies.txt
+
+
+
+⸻
+
+Windows
+	1.	Install ImageMagick:
+	•	Download the latest version of ImageMagick from ImageMagick Downloads.
+	•	Follow the installer prompts and ensure that “Install legacy utilities (e.g., convert)” is checked.
+	2.	Install GitHub CLI:
+	•	Download and install the GitHub CLI from GitHub CLI Downloads.
+	3.	Install Python:
+	•	Ensure Python is installed from Python.org.
+	4.	Clone the Repository:
+Clone the AI Compiler Plus repository from GitHub:
+
+git clone https://github.com/joeysoprano420/AI-Compiler-Plus.git
+cd AI-Compiler-Plus
+
+
+	5.	Install Python Dependencies:
+For Python integration, install the required dependencies:
+
+python -m pip install -r dependencies.txt
+
+
+	6.	Test ImageMagick:
+After installation, open a Command Prompt (cmd) and type:
+
+convert --version
+
+
+
+⸻
+
+Setup and Configuration
+	1.	Configure Paths:
+Make sure all tools (ImageMagick, Python, GitHub CLI) are in your system PATH to access them globally from the terminal.
+	2.	Set up the Environment:
+Before running the tool, ensure your environment is correctly set up:
+	•	Confirm that you have access to the necessary tools (ImageMagick, Python, etc.) in your terminal.
+	•	For GitHub operations, ensure you are logged in using GitHub CLI (gh auth login).
+
+⸻
+
+Usage
+
+Compiling Code
+	1.	Compiling C++ Code:
+Use the provided C++ codebase to compile and package C++ code.
+	•	Ensure you have the necessary build tools (G++, Clang, etc.) installed.
+	•	Compile the code using:
+
+g++ -o output_program source_code.cpp
+
+
+	•	Or use the batch script provided for automated compilation.
+
+	2.	Running the Python Code:
+If using Python for additional functionality, you can execute the Python code as follows:
+
+python3 script.py
+
+
+
+⸻
+
+Converting PNG to ICO
+	1.	Using ImageMagick:
+To convert a PNG image to ICO format, use the provided Bash or Windows scripts:
+
+./convert_png_to_ico.sh input_image.png output_icon.ico
+
+
+	2.	For Windows:
+If you’re using Windows, the process is similar but executed in the Command Prompt:
+
+convert input_image.png output_icon.ico
+
+
+
+⸻
+
+GitHub Integration
+	1.	Automating GitHub Deployment:
+The script automates the deployment process to GitHub:
+	•	Add your GitHub credentials using gh auth login.
+	•	Commit and push your changes using the following command:
+
+git add .
+git commit -m "Automated Commit"
+git push origin main
+
+
+
+⸻
+
+Dependencies
+
+To ensure everything runs smoothly, make sure the following dependencies are installed:
+
+Tools and Libraries:
+	1.	ImageMagick (For image conversion)
+	2.	GitHub CLI (For automated GitHub operations)
+	3.	Boost C++ Libraries (Optional, for additional utilities)
+	4.	OpenCV (Optional, if using for image or video processing)
+	5.	Python and relevant libraries:
+	•	numpy
+	•	pillow
+	•	requests
+
+⸻
+
+Troubleshooting
+	1.	ImageMagick not found:
+Ensure that ImageMagick is properly installed and the executable (convert) is in your system’s PATH.
+	2.	Python dependencies not installed:
+If you encounter errors related to missing Python dependencies, make sure to run:
+
+python3 -m pip install -r dependencies.txt
+
+
+	3.	GitHub CLI authentication issues:
+If the GitHub CLI (gh) isn’t working properly, reauthenticate using:
+
+gh auth login
+
+
+	4.	Compilation errors:
+If you’re facing compilation errors, make sure your C++ code is correctly written and that the necessary libraries (like Boost or OpenCV) are installed.
+
+⸻
+
+Credits
+	•	AI Compiler Plus is created and maintained by Joey Soprano.
+	•	ImageMagick for image conversion utilities.
+	•	GitHub CLI for seamless GitHub interaction.
+	•	Boost C++ Libraries and OpenCV for advanced features.
+
+⸻
+
+Feel free to open an issue in the GitHub repository if you encounter any problems or need help!

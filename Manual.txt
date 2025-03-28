@@ -89,7 +89,7 @@ Install required Python dependencies:
 python3 -m pip install -r dependencies.txt
 
 
-
+rd
 ⸻
 
 Windows
